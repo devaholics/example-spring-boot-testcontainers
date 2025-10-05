@@ -6,7 +6,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.testcontainers.shaded.org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -45,12 +44,27 @@ public class DatabaseInitializationService {
     for (int i = 0; i < desiredEntriesCount; i++) {
       fancyJdbcRepository.save(new SomeFancyEntity(
         null,
-        RandomStringUtils.randomAlphabetic(5) + "-" + i,
-        RandomStringUtils.randomAlphabetic(ThreadLocalRandom.current().nextInt(10, 20))
+        randomAlphabeticWord(5) + "-" + i,
+        randomAlphabeticWord(ThreadLocalRandom.current().nextInt(10, 20))
       ));
     }
     log.info("Database filled successfully");
 
+  }
+
+  private static final char[] ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
+
+  private static String randomAlphabeticWord(int size) {
+    if (size <= 0) {
+      throw new IllegalArgumentException("size must be > 0");
+    }
+
+    var stringBuilder = new StringBuilder(size);
+    var random = ThreadLocalRandom.current();
+    for (int i = 0; i < size; i++) {
+      stringBuilder.append(ALPHABET[random.nextInt(ALPHABET.length)]);
+    }
+    return stringBuilder.toString();
   }
 
 }
