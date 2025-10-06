@@ -81,8 +81,6 @@ public class DevDatabaseConfiguration {
       .waitingFor(postgresDatabaseToBeReady());
   }
 
-
-
   /// A wait strategy that correctly waits for a PostgreSQL database to be ready no matter if the container/database is empty or already contains data.
   ///
   /// This follows the approach described in [here](https://github.com/testcontainers/testcontainers-java/issues/7988#issuecomment-1864700298)
