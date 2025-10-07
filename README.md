@@ -1,0 +1,57 @@
+# Example: Spring Boot + Testcontainers for Development
+
+This repository demonstrates how to use Testcontainers together with Spring Boot for a smooth development experience.
+
+It spins up a Postgres database and a Mailpit SMTP server automatically when you run the app through `bootTestRun`.
+
+Key ideas showcased:
+
+- Run infrastructure services on-demand via Testcontainers during development.
+- Use Spring Boot's Service Connection (@ServiceConnection) to autoconfigure a data source.
+- Register dynamic properties for non-standard services (Mailpit) at runtime.
+- Keep your local machine clean — only a named volume for database-data is left when the app is stopped.
+
+## Prerequisites
+
+- Docker (or a compatible container runtime) must be installed before running the project.
+- While running, the project must be allowed to interact with the container runtime. See:
+  - [Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user)
+  - [Testcontainers with Podman](https://podman-desktop.io/tutorial/testcontainers-with-podman)
+
+## Quickstart
+
+Start the app through Gradle by running:
+
+  ```shell
+  ./gradlew bootTestRun
+  ```
+
+## Notable Implementation Details
+
+- This project uses Postgres
+  in [version 18, which changed the layout of the data directory](https://hub.docker.com/_/postgres#pgdata). Beware that
+  adaptions are necessary when using older versions
+- A custom wait strategy is used to wait for Postgres to be ready. This is required because the default wait strategy
+  that checks on logs of the container cannot correctly handle prefilled databases. Though this is Postgres specific
+  behavior and might not be necessary when using other database vendors.
+- The database container binds to the fixed host port `5432` to easily allow database explorers to interact with the
+  database when it is running.
+- The database container also uses a named volume for persistence between runs. The volume needs to be deleted manually
+  when a clean state is desired.
+- The Mailpit container exposes its SMTP and Web UI on dynamic ports on the host. The corresponding Spring Mail
+  properties are correctly configured at runtime.
+- Please note that it is necessary to set the `spring.mail.host` in
+  the [application.properties](./src/main/resources/application.properties)
+  to trigger the MailSenderAutoConfiguration.
+  See [Spring Boot issue #35127](https://github.com/spring-projects/spring-boot/issues/35127#issuecomment-3372670541)
+  for more details.
+
+## References
+
+- Testcontainers:
+  - https://testcontainers.com/
+  - https://java.testcontainers.org/
+- Spring Boot Testcontainers & Dev Services:
+  - https://docs.spring.io/spring-boot/reference/testing/testcontainers.html
+  - https://docs.spring.io/spring-boot/reference/features/dev-services.html
+- Mailpit: https://mailpit.axllent.org/
