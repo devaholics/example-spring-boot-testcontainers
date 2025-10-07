@@ -28,6 +28,9 @@ Start the app through Gradle by running:
 
 ## Notable Implementation Details
 
+- This project was
+  created [by using this Spring Initializr configuration](https://start.spring.io/#!type=gradle-project-kotlin&language=java&platformVersion=3.5.6&packaging=jar&jvmVersion=25&groupId=com.demo&artifactId=demo&name=demo&description=Demo%20project%20for%20Spring%20Boot&packageName=com.demo.demo&dependencies=web,data-jpa,postgresql,testcontainers,mail)
+  and adapted with some personal preferences like the "dev" profile and the style of configuration classes.
 - This project uses Postgres
   in [version 18, which changed the layout of the data directory](https://hub.docker.com/_/postgres#pgdata). Beware that
   adaptions are necessary when using older versions
