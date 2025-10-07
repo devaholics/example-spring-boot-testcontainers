@@ -20,11 +20,15 @@ Key ideas showcased:
 
 ## Quickstart
 
-Start the app through Gradle by running:
+Start the project through Gradle by running:
 
   ```shell
   ./gradlew bootTestRun
   ```
+
+After that, you will have a working database connection and mail service, both powered by Testcontainers.
+
+You can manually test this by calling the endpoints in [exposed through the RestController.](./src/main/java/io/devaholics/example/spring_boot_testcontainers/SomeFancyRestController.java)
 
 ## Notable Implementation Details
 
