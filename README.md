@@ -11,6 +11,11 @@ Key ideas showcased:
 - Register dynamic properties for non-standard services (Mailpit) at runtime.
 - Keep your local machine clean — only a named volume for database-data is left when the app is stopped.
 
+## Talk
+- This repository was showcased during the "Reducing Friction with Testcontainers" talk by [Philipp Sommersguter](https://www.linkedin.com/in/philipp-sommersguter/),
+presented on behalf of [Devaholics](https://devaholics.io/) at the [Java User Group Graz](https://www.meetup.com/java-user-group-graz/) Revival Meetup.
+- **Slides** can be found [here](./slides). While the code in this repository is constantly evolving, the slides represent the state of this repository as of 03.12.2025.
+
 ## Prerequisites
 
 - Docker (or a compatible container runtime) must be installed before running the project.
@@ -62,3 +67,9 @@ You can manually test this by calling the endpoints in [exposed through the Rest
   - https://docs.spring.io/spring-boot/reference/testing/testcontainers.html
   - https://docs.spring.io/spring-boot/reference/features/dev-services.html
 - Mailpit: https://mailpit.axllent.org/
+
+## License
+
+The slides are licensed under a [CC-BY license](LICENSE).
+
+All other code in this repository is licensed under the [MIT license](LICENSE-CODE).
