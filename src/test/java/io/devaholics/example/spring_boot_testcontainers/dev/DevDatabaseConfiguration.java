@@ -83,15 +83,14 @@ public class DevDatabaseConfiguration {
 
   /// A wait strategy that correctly waits for a PostgreSQL database to be ready no matter if the container/database is empty or already contains data.
   ///
-  /// This follows the approach described in [here](https://github.com/testcontainers/testcontainers-java/issues/7988#issuecomment-1864700298)
-  ///
-  /// Additional references:
+  /// References:
   /// * [Main GitHub Issue](https://github.com/testcontainers/testcontainers-java/issues/5359)
   /// * [Latest PostgreSQLContainer implementation](https://tinyurl.com/3pc84fj9)
   private static WaitStrategy postgresDatabaseToBeReady() {
-    // The SQL command check works reliably and fast.
-    // The only downside is that it prints a few "fatal" log messages when executing the command while the database is not created yet.
-    return Wait.forSuccessfulCommand("psql -q -o /dev/null -c \"SELECT 1\" -d $POSTGRES_DB -U $POSTGRES_USER");
+    // The pg_isready utility (https://www.postgresql.org/docs/current/app-pg-isready.html) check works reliably and fast.
+    // By sleeping before running pg_isready and using the database name and username as environment variables as arguments, no FATAL appear in the containers' logs.
+    // If you don't care about FATAL log messages, you could just use 'pg_isready' without sleeping or additional arguments.
+    return Wait.forSuccessfulCommand("sleep 0.5 && pg_isready -d $POSTGRES_DB -U $POSTGRES_USER");
   }
 
 }
