@@ -90,7 +90,7 @@ public class DevDatabaseConfiguration {
     // The pg_isready utility (https://www.postgresql.org/docs/current/app-pg-isready.html) check works reliably and fast.
     // By sleeping before running pg_isready and using the database name and username as environment variables as arguments, no FATAL appear in the containers' logs.
     // If you don't care about FATAL log messages, you could just use 'pg_isready' without sleeping or additional arguments.
-    return Wait.forSuccessfulCommand("sleep 0.5 && pg_isready -d $POSTGRES_DB -U $POSTGRES_USER");
+    return Wait.forSuccessfulCommand("sleep 1 && pg_isready -d $POSTGRES_DB -U $POSTGRES_USER");
   }
 
 }
