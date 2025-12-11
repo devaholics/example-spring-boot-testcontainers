@@ -1,9 +1,9 @@
 package io.devaholics.example.spring_boot_testcontainers;
 
 
+import org.jspecify.annotations.Nullable;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-import org.springframework.lang.Nullable;
 
 import java.util.UUID;
 

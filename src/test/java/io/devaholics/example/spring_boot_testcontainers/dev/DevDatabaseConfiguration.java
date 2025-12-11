@@ -7,9 +7,9 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.containers.wait.strategy.WaitStrategy;
+import org.testcontainers.postgresql.PostgreSQLContainer;
 
 @Profile("dev")
 @TestConfiguration(proxyBeanMethods = false)
@@ -65,8 +65,8 @@ public class DevDatabaseConfiguration {
   @Bean
   @ServiceConnection
   @SuppressWarnings("resource")
-  PostgreSQLContainer<?> devDatabaseContainer() {
-    return new PostgreSQLContainer<>("postgres:18")
+  PostgreSQLContainer devDatabaseContainer() {
+    return new PostgreSQLContainer("postgres:18")
       .withDatabaseName("some-database")
       .withUsername("sensible-database-username")
       .withPassword("sensible-database-password")
